@@ -6,7 +6,7 @@
 
 [![Open your Home Assistant instance and add this repository.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https://github.com/dasflaigsi/ha-loophole-addon)
 
-This Home Assistant app exposes your Home Assistant instance through a Loophole tunnel [(https://loophole.cloud/)](https://loophole.cloud/) over HTTPS. The app verifies Loophole authentication at startup, prompts for login when needed, and then starts a persistent tunnel to the local Home Assistant HTTP port.
+This Home Assistant app exposes your Home Assistant instance through a Loophole tunnel ([https://loophole.cloud/](https://loophole.cloud/)) over HTTPS. The app verifies Loophole authentication at startup, prompts for login when needed, and then starts a persistent tunnel to the local Home Assistant HTTP port.
 
 ### What is Loophole
 Loophole is a totally free to use HTTPS tunnel, which is hosted in Europe. You can run the service on your local machine which allows you to securely expose services running on that machine to the web, even if they're behind a firewall or NAT. Currently, Loophole serves HTTP/HTTPs requests and plan to introduce TCP connections in future. As a bonus, all traffic from the internet to your local machine will be encrypted with SSL certificates using lets-encrypt. Authentication using Auth0 provides the security to your Loophole tunnels. Loophole lets you have multiple parallel tunnels running with custom host names at any given point along with end-to-end encryption.

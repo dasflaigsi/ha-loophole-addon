@@ -1,14 +1,3 @@
 name: Home Assistant Loophole connector App
 maintainer: dasflaigsi
 url: https://github.com/dasflaigsi/ha-loophole-addon
-addons:
-	- slug: ha-loophole-addon
-		name: Loophole Tunnel
-		version: "1.0.0"
-		description: Expose Home Assistant via Loophole HTTPS tunnel
-		url: https://github.com/dasflaigsi/ha-loophole-addon
-		arch:
-			- amd64
-			- aarch64
-		path: loophole
-
