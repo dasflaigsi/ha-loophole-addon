@@ -1,7 +1,7 @@
 configuration:
   port:
     name: Local HTTP Port
-    description: The HTTP port running on your Home Assistant host (typically 80). Do not use HTTPS port (443).
+    description: The HTTP port running on your Home Assistant host (typically 8123). Do not use HTTPS port (443).
   hostname:
     name: Tunnel Hostname
     description: Custom hostname for your tunnel. The tunnel URL will be https://<hostname>.loophole.site

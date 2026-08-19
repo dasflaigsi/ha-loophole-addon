@@ -1,7 +1,7 @@
 configuration:
   port:
     name: Lokale HTTP-poort
-    description: De HTTP-poort waarop je Home Assistant draait (meestal 80). Gebruik niet de HTTPS-poort (443).
+    description: De HTTP-poort waarop je Home Assistant draait (meestal 8123). Gebruik niet de HTTPS-poort (443).
   hostname:
     name: Tunnelhostnaam
     description: Aangepaste hostnaam voor je tunnel. De tunnel-URL wordt https://<hostname>.loophole.site
