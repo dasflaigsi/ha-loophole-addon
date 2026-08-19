@@ -13,7 +13,7 @@ RUN apk add --no-cache curl && \
         esac && \
         echo "Downloading Loophole from: $LOOPHOLE_URL" && \
         curl -fsSL "${LOOPHOLE_URL}" -o /tmp/loophole.tar.gz && \
-        tar -xzf /tmp/loophole.tar.gz -C /tmp/loophole && \
+        tar -xzf /tmp/loophole.tar.gz -C /tmp/loophole --strip-components=1 && \
         ls /tmp/loophole && \
         mv /tmp/loophole/loophole /usr/local/bin/loophole && \
         chmod +x /usr/local/bin/loophole && \
