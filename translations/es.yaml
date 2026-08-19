@@ -1,0 +1,10 @@
+configuration:
+  port:
+    name: Puerto HTTP local
+    description: El puerto HTTP en el que se ejecuta tu Home Assistant (típicamente 80). No utilices el puerto HTTPS (443).
+  hostname:
+    name: Nombre de host del túnel
+    description: Nombre de host personalizado para tu túnel. La URL del túnel será https://<hostname>.loophole.site
+  verbose:
+    name: Registro detallado
+    description: Habilita el registro de depuración de Loophole CLI para ver los detalles de la operación del túnel

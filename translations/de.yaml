@@ -1,0 +1,10 @@
+configuration:
+  port:
+    name: Port
+    description: Der HTTP-Port, auf dem Ihr Home Assistant läuft (normalerweise 80). Verwenden Sie nicht den HTTPS-Port (443).
+  hostname:
+    name: Hostname
+    description: Benutzerdefinierter Hostname für Ihren Tunnel. Die Tunnel-URL wird sein https://<hostname>.loophole.site 
+  verbose:
+    name: Ausführliches Logging
+    description: Aktivieren Sie Debug-Logging von Loophole CLI, um detaillierte Tunnel-Operationen zu sehen
