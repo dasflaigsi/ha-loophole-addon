@@ -1,7 +1,9 @@
 name: Loophole Tunnel
 version: "1.0.0"
+stage: experimental
 slug: ha-loophole-addon
-description: Home Assistant add-on for loophole.cloud tunneling to expose your HA instance with HTTPS over the public internet.
+description: Home Assistant app for loophole.cloud tunneling to expose your HA instance with HTTPS over the public internet.
+url: https://github.com/dasflaigsi/ha-loophole-addon
 arch:
   - amd64
   - aarch64
@@ -9,7 +11,7 @@ startup: services
 boot: auto
 homeassistant_api: true
 options:
-  port: 80
+  port: 8123
   hostname: ""
   verbose: false
 schema:
