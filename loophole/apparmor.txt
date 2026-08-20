@@ -1,0 +1,52 @@
+#include <tunables/global>
+
+profile ha-loophole-addon flags=(attach_disconnected,mediate_deleted,complain) {
+
+    #include <abstractions/base>
+
+    file,
+    signal,
+
+    # S6 Overlay & Bashio
+    /init rix,
+    /bin/** ix,
+    /usr/bin/** ix,
+    /etc/s6/** rix,
+    /run/s6/** rwix,
+    /etc/services.d/** rwix,
+    /etc/cont-init.d/** rwix,
+    /etc/cont-finish.d/** rwix,
+    /run/** rwk,
+
+    # Bashio
+    /usr/lib/bashio/** ix,
+
+    # Temporary files
+    /tmp/** rw,
+
+    # Persistent app data
+    /data/** rw,
+
+    # Application
+    /usr/src/app/** rix,
+    /usr/local/bin/loophole rix,
+
+    # Python
+    /usr/bin/python3* rix,
+
+    # Configuration / certificates / DNS
+    /etc/** r,
+    /etc/ssl/** r,
+    /etc/hosts r,
+    /etc/resolv.conf r,
+    /etc/nsswitch.conf r,
+
+    # Network communication
+    network inet stream,
+    network inet dgram,
+    network inet6 stream,
+    network inet6 dgram,
+
+    # Process management
+    /proc/** r,
+}

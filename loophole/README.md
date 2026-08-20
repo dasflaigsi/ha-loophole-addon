@@ -62,23 +62,14 @@ verbose: false
 
 This app does not assume the Loophole CLI is already logged in. On every startup it checks authentication status.
 
-If the CLI is not authenticated, the app starts the login flow and prints the URL to the logs. It also creates a persistent notification in Home Assistant so the login prompt is visible in the UI.
+If the CLI is not authenticated, the app starts the login flow and prints an URL to the logs. It also creates a persistent notification in Home Assistant so the login prompt is visible in the UI.
 
-In practice, the flow is:
-
-```bash
-loophole account login
-```
-
-Then you follow the URL in the notification or in the app log, complete the browser login, and the app continues automatically.
+Follow the URL in the notification or in the app log and copy according key, complete the browser login, and the app continues automatically.
+(This requires a Loophole account.)
 
 ## Start-up behavior
 
-Once the user is authenticated and the config is valid, the app starts a tunnel like this:
-
-```bash
-loophole http 8123 homeassistant --hostname myhome
-```
+Once the user is authenticated and the config is valid, the app starts a tunnel and your Home Assistant is reachable from the internet through `https://<hostname>.loophole.site`. This can also be used in the Companion App.
 
 The app stores Loophole state in the app data directory so that the login session persists across restarts.
 
