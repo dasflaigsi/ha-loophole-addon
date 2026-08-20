@@ -1,5 +1,5 @@
 name: Loophole Tunnel
-version: "1.0.7"
+version: "1.0.8"
 stage: stable
 slug: ha-loophole-addon
 apparmor: true
@@ -16,7 +16,9 @@ options:
   port: 8123
   hostname: ""
   verbose: false
+  logout_on_restart: false
 schema:
   port: int(1,65535)
   hostname: str
   verbose: bool
+  logout_on_restart: bool

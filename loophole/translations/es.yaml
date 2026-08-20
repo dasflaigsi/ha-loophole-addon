@@ -8,3 +8,6 @@ configuration:
   verbose:
     name: Registro detallado
     description: Habilita el registro de depuración de Loophole CLI para ver los detalles de la operación del túnel
+  logout_on_restart:
+    name: Ejecutar cierre de sesión en el próximo reinicio
+    description: Cuando está habilitado, la app cerrará la sesión de la cuenta de Loophole en el próximo reinicio y luego deshabilitará esta opción. Esto fuerza un nuevo inicio de sesión en el siguiente reinicio.

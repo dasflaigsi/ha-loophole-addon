@@ -8,3 +8,6 @@ configuration:
   verbose:
     name: Gedetailleerde logging
     description: Schakel debug-logging van Loophole CLI in om gedetailleerde tunnelbewerking te zien
+  logout_on_restart:
+    name: Afmelden bij volgende herstart uitvoeren
+    description: Als ingeschakeld, meldt de app zich bij de volgende herstart af van het Loophole-account en schakelt deze optie vervolgens uit. Dit forceert een nieuwe aanmelding bij de volgende herstart.

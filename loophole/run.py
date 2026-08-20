@@ -61,12 +61,22 @@ def log(message: str):
 def load_options():
     """Load options from Home Assistant"""
     if not OPTIONS_PATH.exists():
-        return {"port": 80, "hostname": "", "verbose": False}
+        return {"port": 80, "hostname": "", "verbose": False, "logout_on_restart": False}
     try:
         return json.loads(OPTIONS_PATH.read_text(encoding="utf-8"))
     except Exception as e:
         log(f"Error loading options: {e}")
-        return {"port": 80, "hostname": "", "verbose": False}
+        return {"port": 80, "hostname": "", "verbose": False, "logout_on_restart": False}
+
+
+def save_options(options):
+    """Save options to Home Assistant"""
+    try:
+        OPTIONS_PATH.parent.mkdir(parents=True, exist_ok=True)
+        OPTIONS_PATH.write_text(json.dumps(options, indent=2), encoding="utf-8")
+        log(f"✓ Options saved")
+    except Exception as e:
+        log(f"Error saving options: {e}")
 
 
 def is_valid(options):
@@ -123,6 +133,27 @@ def send_notification(title: str, message: str):
 
 def strip_ansi(text: str) -> str:
     return ANSI_ESCAPE_RE.sub("", text)
+
+def run_logout():
+    """Execute loophole account logout"""
+    try:
+        log("Executing: loophole account logout")
+        result = subprocess.run(
+            ["loophole", "account", "logout"],
+            capture_output=True,
+            text=True,
+            timeout=10,
+            env=get_loophole_env(),
+        )
+        if result.returncode == 0:
+            log("✓ Successfully logged out from Loophole")
+            return True
+        else:
+            log(f"⚠ Logout returned code {result.returncode}: {result.stderr}")
+            return False
+    except Exception as e:
+        log(f"Error during logout: {e}")
+        return False
 
 def run_login_check():
     """Check login status - keeps command running and captures output"""
@@ -355,6 +386,14 @@ def main():
         # Load options
         options = load_options()
         log(f"Configuration: port={options.get('port')}, hostname={options.get('hostname')}, verbose={options.get('verbose', False)}")
+        
+        # Check if logout on restart is requested
+        if options.get('logout_on_restart', False):
+            log("Logout on restart is enabled - performing logout...")
+            run_logout()
+            options['logout_on_restart'] = False
+            save_options(options)
+            log("Logout on restart has been disabled")
         
         # Check authentication status on every startup
         log("Checking Loophole authentication...")

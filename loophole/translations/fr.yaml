@@ -8,3 +8,6 @@ configuration:
   verbose:
     name: Journalisation détaillée
     description: Activez la journalisation de débogage de Loophole CLI pour voir les opérations du tunnel en détail
+  logout_on_restart:
+    name: Exécuter la déconnexion au prochain redémarrage
+    description: Lorsque activé, l'application se déconnectera du compte Loophole au prochain redémarrage, puis désactivera cette option. Cela force une nouvelle connexion au redémarrage suivant.

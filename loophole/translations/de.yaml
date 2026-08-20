@@ -8,3 +8,6 @@ configuration:
   verbose:
     name: Ausführliches Logging
     description: Aktivieren Sie Debug-Logging von Loophole CLI, um detaillierte Tunnel-Operationen zu sehen
+  logout_on_restart:
+    name: Abmeldung beim nächsten Neustart ausführen
+    description: Wenn aktiviert, meldet sich die App beim nächsten Neustart vom Loophole-Konto ab und deaktiviert diese Option dann. Dies erzwingt eine neue Anmeldung beim nächsten Neustart.
