@@ -80,6 +80,10 @@ def send_notification(title: str, message: str):
     """Send notification to Home Assistant UI"""
     try:
         token = os.environ.get("SUPERVISOR_TOKEN", "")
+
+        log(f"SUPERVISOR_TOKEN present: {bool(token)}")
+        log(f"SUPERVISOR_TOKEN length: {len(token) if token else 0}")
+
         if not token:
             log("Warning: SUPERVISOR_TOKEN not set, cannot send notification")
             return
