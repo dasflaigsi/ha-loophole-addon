@@ -4,7 +4,7 @@
 
 # HA Loophole App
 
-[![Open your Home Assistant instance and add this repository.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https://github.com/dasflaigsi/ha-loophole-addon)
+[![Open your Home Assistant instance and add this repository.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https://github.com/dasflaigsi/ha-supervisor-apps)
 
 This Home Assistant app exposes your Home Assistant instance through a Loophole tunnel ([https://loophole.cloud/](https://loophole.cloud/)) over HTTPS. The app verifies Loophole authentication at startup, prompts for login when needed, and then starts a persistent tunnel to the local Home Assistant HTTP port.
 
@@ -37,7 +37,7 @@ Use above link to direcly open the repository in your Home Assistant
 
 or
 
-1. Add this repository as a local Home Assistant app repository. Copy the `ha-loophole-addon` folder into your Home Assistant's `addons` folder.
+1. Add this repository as a local Home Assistant app repository. Copy the `loophole` folder into your Home Assistant's `addons` folder.
 2. Open the Home Assistant App Store.
 3. Find the app called `Loophole Tunnel`.
 4. Install it.

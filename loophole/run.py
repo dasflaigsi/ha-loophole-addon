@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Loophole Tunnel Add-on for Home Assistant
+Loophole Tunnel App for Home Assistant
 Manages a persistent loophole tunnel to expose Home Assistant over HTTPS
 
-This can not be run directly in Dockerfile because of missing environment variables.
+This can not be run directly in Dockerfile because of missing environment variables (SUPERVISOR_TOKEN).
 Dockerfile runs run.sh which fetches up the environment and then runs this script.
 """
 
@@ -29,7 +29,7 @@ tunnel_process = None
 
 
 def get_loophole_env():
-    """Return an environment that keeps Loophole state in the persistent add-on data volume."""
+    """Return an environment that keeps Loophole state in the persistent app data volume."""
     loophole_home = DATA_DIR / "loophole-home"
     loophole_home.mkdir(parents=True, exist_ok=True)
 
@@ -83,10 +83,6 @@ def send_notification(title: str, message: str):
     """Send notification to Home Assistant UI"""
     try:
         token = os.environ.get("SUPERVISOR_TOKEN", "")
-
-        log(f"SUPERVISOR_TOKEN present: {bool(token)}")
-        log(f"SUPERVISOR_TOKEN length: {len(token) if token else 0}")
-
         if not token:
             log("Warning: SUPERVISOR_TOKEN not set, cannot send notification")
             return
@@ -350,7 +346,7 @@ def main():
     """Main entry point"""
     try:
         log("========================================")
-        log("Loophole Tunnel Add-on starting")
+        log("Loophole Tunnel App starting")
         log("========================================")
         
         # Create data directory
@@ -385,7 +381,7 @@ def main():
             log("Configuration is not valid yet. Please configure port and hostname.")
             return
         
-        log("Add-on ready")
+        log("App ready")
         
         # Keep running
         while True:
@@ -401,7 +397,7 @@ def main():
     finally:
         log("Shutting down...")
         stop_tunnel()
-        log("Loophole Tunnel Add-on stopped")
+        log("Loophole Tunnel App stopped")
 
 
 if __name__ == "__main__":
