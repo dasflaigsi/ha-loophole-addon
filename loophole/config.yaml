@@ -2,7 +2,6 @@ name: Loophole Tunnel
 version: "1.0.7
 stage: stable
 slug: ha-loophole-addon
-apparmor: ha-loophole-addon
 description: Home Assistant app for loophole.cloud tunneling to expose your HA instance with HTTPS over the public internet.
 url: https://github.com/dasflaigsi/ha-supervisor-apps
 arch:
