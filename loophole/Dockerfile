@@ -10,7 +10,8 @@ ENV DATA_DIR=/data
 RUN apk add --no-cache \
         curl \
         python3 \
-        tar && \
+        tar \
+        gcompat && \
     mkdir -p /tmp/loophole && \
     case "${BUILD_ARCH}" in \
         x86_64|amd64) LOOPHOLE_URL="https://github.com/loophole/cli/releases/download/1.0.0-beta.15/loophole-cli_1.0.0-beta.15_linux_64bit.tar.gz";; \
