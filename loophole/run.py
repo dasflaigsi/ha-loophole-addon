@@ -79,6 +79,54 @@ def save_options(options):
         log(f"Error saving options: {e}")
 
 
+def update_option_via_api(key: str, value):
+    """Update an app option via Home Assistant supervisor API"""
+    try:
+        token = os.environ.get("SUPERVISOR_TOKEN", "")
+        if not token:
+            log("Warning: SUPERVISOR_TOKEN not set, cannot update options via API")
+            return False
+        
+        headers = {
+            "Authorization": f"Bearer {token}",
+            "content-type": "application/json",
+        }
+        
+        # Load current options and update only the specified key
+        options = load_options()
+        options[key] = value
+        
+        data = {"options": options}
+        
+        url = "http://supervisor/addons/self/options"
+        req = urllib.request.Request(
+            url,
+            data=json.dumps(data).encode('utf-8'),
+            headers=headers,
+            method='POST'
+        )
+        
+        response = urllib.request.urlopen(req, timeout=5)
+        status = response.status
+        
+        if status == 200:
+            log(f"✓ Option {key} updated to {value} via API")
+            return True
+        else:
+            log(f"API returned status {status} when updating {key}")
+            return False
+            
+    except urllib.error.HTTPError as e:
+        log(f"API error {e.code} when updating option: {e.reason}")
+        return False
+    except urllib.error.URLError as e:
+        log(f"Failed to connect to supervisor API: {e.reason}")
+        return False
+    except Exception as e:
+        log(f"Failed to update option via API: {e}")
+        return False
+
+
 def is_valid(options):
     """Check if configuration is valid"""
     try:
@@ -391,8 +439,8 @@ def main():
         if options.get('logout_on_restart', False):
             log("Logout on restart is enabled - performing logout...")
             run_logout()
-            options['logout_on_restart'] = False
-            save_options(options)
+            # Reset the option back to false via API
+            update_option_via_api("logout_on_restart", False)
             log("Logout on restart has been disabled")
         
         # Check authentication status on every startup
