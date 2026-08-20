@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-#!/usr/bin/with-contenv bashio
 """
 Loophole Tunnel Add-on for Home Assistant
 Manages a persistent loophole tunnel to expose Home Assistant over HTTPS
+
+This can not be run directly in Dockerfile because of missing environment variables.
+Dockerfile runs run.sh which fetches up the environment and then runs this script.
 """
 
 import re

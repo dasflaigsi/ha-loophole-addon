@@ -38,4 +38,7 @@ RUN \
 COPY run.py ./
 RUN chmod +x /usr/src/app/run.py
 
-CMD ["python3", "/usr/src/app/run.py"]
+COPY run.sh ./
+RUN chmod +x /usr/src/app/run.sh
+
+CMD ["/usr/src/app/run.sh"]
