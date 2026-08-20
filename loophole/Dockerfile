@@ -35,7 +35,7 @@ RUN \
     echo "${PATH}" && \
     which loophole
 
-
+COPY run.py ./
 RUN chmod +x /usr/src/app/run.py
 
 CMD ["python3", "/usr/src/app/run.py"]
