@@ -64,6 +64,16 @@ profile ha-loophole-addon flags=(attach_disconnected,mediate_deleted) {
     # run.py explicitly sets HOME and XDG_* below /data.
     /data/loophole-home/** rw,
 
+    # System CA certificates
+    /usr/share/ca-certificates/** r,
+    /etc/ssl/certs/** r,
+
+    # Timezone data
+    /usr/share/zoneinfo/** r,
+
+    # Go networking
+    /proc/sys/net/core/somaxconn r,
+
     # CA certificates / DNS
     /etc/hosts r,
     /etc/resolv.conf r,
