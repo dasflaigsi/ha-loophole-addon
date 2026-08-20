@@ -29,7 +29,6 @@ RUN apk add --no-cache \
 RUN \
     echo "=== Loophole installation ===" && \
     ls -lah /usr/local/bin/loophole && \
-    file /usr/local/bin/loophole && \
     /usr/local/bin/loophole --version && \
     echo "=== PATH ===" && \
     echo "${PATH}" && \
