@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+#!/usr/bin/with-contenv bashio
 """
 Loophole Tunnel Add-on for Home Assistant
 Manages a persistent loophole tunnel to expose Home Assistant over HTTPS
