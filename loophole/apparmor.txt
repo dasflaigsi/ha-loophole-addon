@@ -1,52 +1,85 @@
 #include <tunables/global>
 
-profile ha-loophole-addon flags=(attach_disconnected,mediate_deleted,complain) {
+profile ha-loophole-addon flags=(attach_disconnected,mediate_deleted) {
 
-    #include <abstractions/base>
+  # Standard HA/S6 container infrastructure.
+  # Home Assistant recommends retaining this part of an app profile.
 
-    file,
-    signal,
+  #include <abstractions/base>
 
-    # S6 Overlay & Bashio
-    /init rix,
-    /bin/** ix,
-    /usr/bin/** ix,
-    /etc/s6/** rix,
-    /run/s6/** rwix,
-    /etc/services.d/** rwix,
-    /etc/cont-init.d/** rwix,
-    /etc/cont-finish.d/** rwix,
-    /run/** rwk,
+  signal,
 
-    # Bashio
-    /usr/lib/bashio/** ix,
+  /init rix,
+  /bin/** ix,
+  /usr/bin/** ix,
 
-    # Temporary files
-    /tmp/** rw,
+  /etc/s6/** rix,
+  /run/s6/** rwix,
 
-    # Persistent app data
-    /data/** rw,
+  /etc/services.d/** rwix,
+  /etc/cont-init.d/** rwix,
+  /etc/cont-finish.d/** rwix,
 
-    # Application
-    /usr/src/app/** rix,
-    /usr/local/bin/loophole rix,
+  /run/** rwk,
 
-    # Python
-    /usr/bin/python3* rix,
+  # Bashio
+  /usr/lib/bashio/** ix,
 
-    # Configuration / certificates / DNS
-    /etc/** r,
-    /etc/ssl/** r,
+  # Python application
+  /usr/src/app/run.py rix,
+  /usr/src/app/run.sh rix,
+  /usr/bin/python3* rix,
+
+  # Application data
+  /data/** rw,
+
+  # Configuration / DNS / TLS
+  /etc/** r,
+  /etc/ssl/** r,
+  /etc/hosts r,
+  /etc/resolv.conf r,
+  /etc/nsswitch.conf r,
+
+  # Network access used by Python:
+  # Supervisor API + Loophole child process.
+  network inet stream,
+  network inet dgram,
+  network inet6 stream,
+  network inet6 dgram,
+
+  # Python starts the Loophole CLI in its own profile.
+  /usr/local/bin/loophole cx -> loophole,
+
+
+  # ------------------------------------------------------------
+  # Loophole CLI
+  # ------------------------------------------------------------
+
+  profile loophole flags=(attach_disconnected,mediate_deleted,complain) {
+
+    # Executable
+    /usr/local/bin/loophole r,
+
+    # Loophole authentication/config/cache.
+    # run.py explicitly sets HOME and XDG_* below /data.
+    /data/loophole-home/** rw,
+
+    # CA certificates / DNS
     /etc/hosts r,
     /etc/resolv.conf r,
     /etc/nsswitch.conf r,
+    /etc/ssl/** r,
 
-    # Network communication
+    # Go runtime / shared libraries
+    /lib/** mr,
+    /lib64/** mr,
+    /usr/lib/** mr,
+
+    # Outbound HTTPS and tunnel connection.
     network inet stream,
-    network inet dgram,
     network inet6 stream,
-    network inet6 dgram,
 
-    # Process management
-    /proc/** r,
+    # Allow normal process termination from the parent.
+    signal (receive),
+  }
 }
