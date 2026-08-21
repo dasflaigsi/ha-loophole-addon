@@ -4,7 +4,13 @@
 
 # HA Loophole App
 
+Reach your Home Assistant form the internet. Secure, fast and easy!
+
+![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield]
+
 [![Open your Home Assistant instance and add this repository.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https://github.com/dasflaigsi/ha-supervisor-apps)
+
+## About
 
 This Home Assistant app exposes your Home Assistant instance through a Loophole tunnel ([https://loophole.cloud/](https://loophole.cloud/)) over HTTPS. The app verifies Loophole authentication at startup, prompts for login when needed, and then starts a persistent tunnel to the local Home Assistant HTTP port.
 
@@ -21,11 +27,6 @@ At startup, the app:
 4. Sends a Home Assistant persistent notification with the login URL when authentication is required.
 5. Once authentication succeeds, starts the tunnel with `loophole http <port> homeassistant --hostname <hostname>`.
 6. Keeps a watchdog thread running to restart the tunnel if it exits unexpectedly.
-
-## Supported architecture
-
-- `amd64`
-- `aarch64`
 
 ## Important warning
 
