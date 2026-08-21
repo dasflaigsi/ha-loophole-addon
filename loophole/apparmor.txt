@@ -16,16 +16,18 @@ profile ha-loophole-addon flags=(attach_disconnected,mediate_deleted) {
   /etc/services.d/** rwix,
   /etc/cont-init.d/** rwix,
   /etc/cont-finish.d/** rwix,
-  /run/** rwka,
+  /run/ rwxk,
+  /run/** rwxk,
   /dev/tty rw,
 
   # Bashio
   /usr/lib/bashio/** rix,
 
   # Application
-  /usr/src/app/ r,
+  /usr/src/app/ rix,
   /usr/src/app/** rix,
   /data/** rw,
+  /proc/ r,
   /proc/** r,
 
   # Basic runtime configuration
