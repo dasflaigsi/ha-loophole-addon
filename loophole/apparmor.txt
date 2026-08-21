@@ -2,94 +2,66 @@
 
 profile ha-loophole-addon flags=(attach_disconnected,mediate_deleted) {
 
-  # Standard HA/S6 container infrastructure.
-  # Home Assistant recommends retaining this part of an app profile.
-
+  # HA/S6 infrastructure
   #include <abstractions/base>
 
   signal,
 
-  # S6-Overlay
   /init rix,
-  /bin/** ix,
-  /usr/bin/** ix,
-  /run/{s6,s6-rc*,service}/** ix,
+  /bin/** rix,
+  /usr/bin/** rix,
+  /run/{s6,s6-rc*,service}/** rwix,
   /package/** rix,
   /command/** rix,
   /etc/services.d/** rwix,
   /etc/cont-init.d/** rwix,
   /etc/cont-finish.d/** rwix,
-  /run/{,**} rwk,
+  /run/** rwk,
   /dev/tty rw,
 
   # Bashio
-  /usr/lib/bashio/** ix,
+  /usr/lib/bashio/** rix,
 
-  # Python application
-  /usr/src/app/run.py rix,
-  /usr/src/app/run.sh rix,
-  /usr/bin/python3* rix,
-
-  # Application data
+  # Application
+  /usr/src/app/** rix,
   /data/** rw,
 
-  # Configuration / DNS / TLS
+  # Basic runtime configuration
   /etc/** r,
-  /etc/ssl/** r,
-  /etc/hosts r,
-  /etc/resolv.conf r,
-  /etc/nsswitch.conf r,
+  /usr/share/ca-certificates/** r,
+  /usr/share/zoneinfo/** r,
 
-  # Network access used by Python:
-  # Supervisor API + Loophole child process.
+  # Networking
   network inet stream,
   network inet dgram,
   network inet6 stream,
   network inet6 dgram,
 
-  # Python starts the Loophole CLI in its own profile.
+  # Loophole
   /usr/local/bin/loophole cx -> loophole,
 
 
-  # ------------------------------------------------------------
-  # Loophole CLI
-  # ------------------------------------------------------------
-
   profile loophole flags=(attach_disconnected,mediate_deleted,complain) {
 
-    # Executable
-    /usr/local/bin/loophole r,
+    # Loophole executable
+    /usr/local/bin/loophole rix,
 
-    # Loophole authentication/config/cache.
-    # run.py explicitly sets HOME and XDG_* below /data.
+    # Loophole's persistent state
     /data/loophole-home/** rw,
 
-    # System CA certificates
+    # Runtime / TLS
+    /etc/** r,
     /usr/share/ca-certificates/** r,
-    /etc/ssl/certs/** r,
-
-    # Timezone data
     /usr/share/zoneinfo/** r,
-
-    # Go networking
-    /proc/sys/net/core/somaxconn r,
-
-    # CA certificates / DNS
-    /etc/hosts r,
-    /etc/resolv.conf r,
-    /etc/nsswitch.conf r,
-    /etc/ssl/** r,
-
-    # Go runtime / shared libraries
     /lib/** mr,
     /lib64/** mr,
     /usr/lib/** mr,
 
-    # Outbound HTTPS and tunnel connection.
+    # Network
     network inet stream,
     network inet6 stream,
 
-    # Allow normal process termination from the parent.
+    # Parent may stop/restart it
     signal (receive),
   }
 }

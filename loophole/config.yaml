@@ -1,5 +1,5 @@
 name: Loophole Tunnel
-version: "1.0.14"
+version: "1.0.15"
 stage: stable
 slug: ha-loophole-addon
 apparmor: true
